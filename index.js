@@ -37,7 +37,10 @@ module.exports.apply = (ctx) => {
 				let amount = [];
 				arg.map((value) => {
 					mods.push(value.replace(/[0-9]/ig, ""));
-					amount.push(parseInt(value.replace(/[^0-9]/ig, "")));
+					let count = parseInt(value.replace(/[^0-9]/ig, ""));
+					if (count>255) count = 255;
+					if (count<1) count = 1;
+					amount.push(count);
 				});
 				rollCollector[qqId] = new Roller(mods, amount);
 				return meta.$send( `[CQ:at,qq=${meta.userId}]` + "\n创建成功！\n" +rollCollector[qqId].info() + "\n输入!rnext开始roll图");
