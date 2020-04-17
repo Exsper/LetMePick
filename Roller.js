@@ -15,6 +15,7 @@ class Roller {
         });
         this.beatmapCodeNames = this.setBeatmapCodeName();
         this.rollCount = 0;
+        this.record = [];
     }
 
     /**
@@ -45,11 +46,17 @@ class Roller {
         return output;
     }
 
+    showRecord() {
+        if (this.record.length<=0) return "您还没有开始roll图呢";
+        return "已roll过谱面："+ this.record.join(", ");
+    }
+
     roll() {
         if (this.beatmapCodeNames.length <= 0) return "图池里所有图都打过了";
         let index = this.getRandomInt(this.beatmapCodeNames.length);
         this.rollCount = this.rollCount + 1;
         let beatmapName = this.beatmapCodeNames[index];
+        this.record.push(beatmapName);
         this.beatmapCodeNames.splice(index, 1);
         return "Round " + this.rollCount + "：" + beatmapName;
     }
